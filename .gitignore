@@ -50,3 +50,8 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+/.vs/ChatProgram/v15/Server/sqlite3/storage.ide-wal
+/.vs/ChatProgram/v15/Server/sqlite3/storage.ide-shm
+/.vs/ChatProgram/v15/Server/sqlite3/storage.ide
+/.vs/ChatProgram/v15/Server/sqlite3/db.lock
+/Model/obj
