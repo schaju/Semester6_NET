@@ -13,7 +13,7 @@ namespace WebService
         {
             // Web API configuration and services
 
-            DapperConfiguration.Map();
+            DapperConfiguration.Initialize();
 
             // Web API routes
             config.MapHttpAttributeRoutes();

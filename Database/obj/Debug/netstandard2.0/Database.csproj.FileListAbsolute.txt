@@ -7,6 +7,6 @@ C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Database\obj\Debug\netstan
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Database\obj\Debug\netstandard2.0\Database.csproj.CoreCompileInputs.cache
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Database\obj\Debug\netstandard2.0\Database.AssemblyInfoInputs.cache
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Database\obj\Debug\netstandard2.0\Database.AssemblyInfo.cs
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Database\obj\Debug\netstandard2.0\Database.csproj.CopyComplete
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Database\obj\Debug\netstandard2.0\Database.dll
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Database\obj\Debug\netstandard2.0\Database.pdb
-C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Database\obj\Debug\netstandard2.0\Database.csproj.CopyComplete

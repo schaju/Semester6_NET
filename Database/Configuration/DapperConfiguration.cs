@@ -6,11 +6,11 @@ using Database.Mapper;
 
 namespace Database
 {
-    public class DapperConfiguration
+    public static class DapperConfiguration
     {
         private static bool mapped;
 
-        public static void Map()
+        public static void Initialize()
         {
             if (mapped)
             {
