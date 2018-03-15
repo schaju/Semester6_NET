@@ -17,7 +17,7 @@ namespace Database
 
         public UserAccount GetUser(string username, string password)
         {
-            using (IDbConnection connection = provider.GetConnection())
+            using (IDbConnection connection = provider.GetMySqlConnection())
             {
                 using (IDbCommand command = connection.CreateCommand())
                 {

@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "0aa8afdb30dc8c913743e642d8a11e83ae24837c"
+    "signature": "3f4423a174b56750e40c1a4f72acfd94f9c4db1b"
   },
   "compilationOptions": {},
   "targets": {
@@ -10,6 +10,7 @@
       "Database/1.0.0": {
         "dependencies": {
           "Dapper": "1.50.4",
+          "Dapper.FluentMap": "1.6.0",
           "Model": "1.0.0",
           "MySql.Data": "6.10.6",
           "NETStandard.Library": "2.0.1"
@@ -26,6 +27,15 @@
         },
         "runtime": {
           "lib/netstandard2.0/Dapper.dll": {}
+        }
+      },
+      "Dapper.FluentMap/1.6.0": {
+        "dependencies": {
+          "Dapper": "1.50.4",
+          "NETStandard.Library": "2.0.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Dapper.FluentMap.dll": {}
         }
       },
       "Microsoft.NETCore.Platforms/1.1.0": {},
@@ -256,6 +266,13 @@
       "sha512": "sha512-t5DMz+1aEkBcyCgkj+6hJHNsUq3k/d67lVMTNzICEhVjPUI3Gt2kgotSK8S4SpziIbFPphnOEn8M6Q75ED5hRQ==",
       "path": "dapper/1.50.4",
       "hashPath": "dapper.1.50.4.nupkg.sha512"
+    },
+    "Dapper.FluentMap/1.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-niI2QZGCs6lsa19RvJNYeEVbFhlYbWHsX9KkyY39R6R9LKuxtoyT3FvYNEVyAnYNDh/cg8Ntomemg1opOFRa3g==",
+      "path": "dapper.fluentmap/1.6.0",
+      "hashPath": "dapper.fluentmap.1.6.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",
