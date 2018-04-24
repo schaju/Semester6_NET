@@ -954,7 +954,7 @@
               User Id<para>  -or-  </para>Username<para>  -or-  </para>Uid<para>  -or-  </para>User name
             </td>
             <td></td>
-            <td>The MySQL login account being used.</td>
+            <td>The MySQL loginUserData account being used.</td>
           </tr>
           <tr>
             <td>Shared Memory Name</td>

@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Http;
 using Database;
 using Model;
-using WebService.Models;
+using Model.Enum;
+using WebService.Services;
 
 namespace WebService.Controllers
 {
+    [RoutePrefix("api/useraccount")]
     public class UserAccountController : BaseController
     {
         private UserAccountService service;
@@ -20,73 +23,72 @@ namespace WebService.Controllers
         }
 
         [HttpPost]
-        [ActionName("login")]
-        public IHttpActionResult Login([FromBody] UserAccount userAccount)
+        [Route("registration")]
+        public IHttpActionResult Registration([FromBody] UserAccount userAccount)
         {
             using (IDbConnection connection = base.ConnectionProvider.GetMySqlConnection())
             {
-                bool loginSuccessful = service.Login(connection, userAccount.UserName, userAccount.Password);
-
-                if (loginSuccessful)
+                if (string.IsNullOrEmpty(userAccount.FirstName) ||
+                    string.IsNullOrEmpty(userAccount.LastName) ||
+                    string.IsNullOrEmpty(userAccount.UserName) ||
+                    string.IsNullOrEmpty(userAccount.Password))
                 {
-                    return Ok("Your are logged in.");
+                    return BadRequest("Firstname, lastname, username and password must be set.");
                 }
 
-                return BadRequest("Sorry, Login failed.");
+                long userAccountCount = service.CountUserAccountByUsername(connection, userAccount.UserName);
+
+                if (userAccountCount > 0)
+                {
+                    return BadRequest("Username does already exist.");
+                }
+
+                service.Insert(connection, userAccount.FirstName, userAccount.LastName, userAccount.UserName, userAccount.Password, userAccount.StatusMessage, userAccount.UserIcon);
+
+                UserAccount loadedUserAccount = service.GetUserAccountByUsernameAndPassword(connection, userAccount.UserName, userAccount.Password);
+                return Ok(loadedUserAccount);
             }
         }
 
-        [HttpGet]
-        [ActionName("logout")]
-        public IHttpActionResult Logout(string username)
+        [HttpPost]
+        [Route("login")]
+        public IHttpActionResult Login([FromBody] LoginUserData loginUserData)
         {
             using (IDbConnection connection = base.ConnectionProvider.GetMySqlConnection())
             {
-                //TODO
-            }
+                UserAccount loadedUserAccount = service.GetUserAccountByUsernameAndPassword(connection, loginUserData.UserName, loginUserData.Password);
 
-            return null;
+                if (loadedUserAccount != null && loadedUserAccount.UserAccountStatus == UserAccountStatus.Inactive)
+                {
+                    service.UpdateUserAccountStatus(connection, loginUserData, UserAccountStatus.Active);
+                    return Ok(loadedUserAccount);
+                }
+                return Unauthorized();
+            }
         }
 
-        //[HttpPost]
-        //[Route("Insert")]
-        //public IHttpActionResult Insert(UserAccount userAccount)
-        //{
-        //    using (IDbConnection connection = base.ConnectionProvider.GetMySqlConnection())
-        //    {
-        //        int result = service.Save(connection, item);
-        //        return Ok(new { id = result });
-        //    }
-        //}
+        [HttpPost]
+        [Route("logout")]
+        public IHttpActionResult Logout([FromBody] LoginUserData loginUserData)
+        {
+            using (IDbConnection connection = base.ConnectionProvider.GetMySqlConnection())
+            {
+                service.UpdateUserAccountStatus(connection, loginUserData, UserAccountStatus.Inactive);
+                return Ok();
+            }
+        }
 
-        //[HttpPut]
-        //[Route("Update")]
-        //public IHttpActionResult Update(int id, [FromBody]Tour item)
-        //{
-        //    using (IDbConnection connection = base.ConnectionProvider.GetMySqlConnection())
-        //    {
-        //        Tour oldItem = service.Get(connection, id);
-        //        if (oldItem == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        int result = service.Save(connection, item);
-        //        return Ok(new { id = result });
-        //    }
-        //}
-
-        //[HttpDelete]
-        //[Route("{id}")]
-        //public IHttpActionResult Delete(int id)
-        //{
-        //    using (IDbConnection connection = base.ConnectionProvider.GetMySqlConnection())
-        //    {
-        //        int rows = service.Delete(connection, id);
-        //        return Ok(new { count = rows });
-
-
-        //    }
-        //}
+        [HttpPost]
+        [Route("contacts")]
+        public IHttpActionResult GetContacts([FromBody] LoginUserData loginUserData)
+        {
+            using (IDbConnection connection = base.ConnectionProvider.GetMySqlConnection())
+            {
+                IEnumerable<UserAccount> userContactList =
+                    service.GetContactListByUsernameAndPassword(connection, loginUserData.UserName,
+                        loginUserData.Password);
+                return Ok(userContactList);
+            }
+        }
     }
 }
