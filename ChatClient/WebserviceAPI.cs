@@ -75,7 +75,28 @@ namespace ChatClient
             }
         }
 
-        public static void LoadContactList()
+        public static IEnumerable<Model.Chat> LoadChatList()
+        {
+            if (LoggedInUserAccount != null)
+            {
+                var client = new RestClient(BASE_URL);
+                var request = new RestRequest("chat/chats", Method.POST);
+                request.AddParameter("username", LoggedInUserAccount.UserName);
+                request.AddParameter("password", LoggedInUserAccount.Password);
+
+                var chatResponse = (RestResponse<List<Model.Chat>>)client.Execute<List<Model.Chat>>(request);
+
+                if (chatResponse.StatusCode == HttpStatusCode.OK)
+                {
+                    return (List<Model.Chat>)chatResponse.Data;
+
+                }
+                throw new Exception(chatResponse.ErrorMessage.ToString());
+            }
+            return null;
+        }
+
+        public static IEnumerable<UserAccount> LoadContactList()
         {
             if (LoggedInUserAccount != null)
             {
@@ -86,15 +107,13 @@ namespace ChatClient
 
                 var userAccountResponse = (RestResponse<List<UserAccount>>)client.Execute<List<UserAccount>>(request);
 
-                if (userAccountResponse.StatusCode == HttpStatusCode.OK && userAccountResponse.Data != null)
+                if (userAccountResponse.StatusCode == HttpStatusCode.OK)
                 {
-                    LoggedInUserAccount.Contacts = userAccountResponse.Data;
+                    return userAccountResponse.Data;
                 }
-                else
-                {
-                    throw new Exception(userAccountResponse.ErrorMessage.ToString());
-                }
+                throw new Exception(userAccountResponse.ErrorMessage.ToString());
             }
+            return null;
         }
     }
 }

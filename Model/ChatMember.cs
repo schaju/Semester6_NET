@@ -6,7 +6,7 @@ namespace Model
 {
     public class ChatMember : DomainObject
     {
-        public Chat Chat { get; set; }
-        public List<UserAccount> Users { get; set; }
+        public UserAccount User { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

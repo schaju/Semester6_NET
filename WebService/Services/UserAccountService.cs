@@ -16,9 +16,9 @@ namespace WebService.Services
             this.repository = new UserAccountRepository();
         }
 
-        public void Insert(IDbConnection connection, string firstname, string lastname, string username, string password, string statusMessage, byte[] userIcon)
+        public void Insert(IDbConnection connection, string firstname, string lastname, string username, string password, string statusMessage, List<byte> userIcon)
         {
-            repository.Insert(connection, firstname, lastname, username, password, statusMessage, userIcon);
+            repository.Insert(connection, firstname, lastname, username, password, statusMessage, userIcon.ToArray());
         }
 
         public long CountUserAccountByUsername(IDbConnection connection, string username)
@@ -28,7 +28,7 @@ namespace WebService.Services
 
         public UserAccount GetUserAccountByUsernameAndPassword(IDbConnection connection, string username, string password)
         {
-            return repository.GetByUsernameAndPassword(connection, username, password);
+            return repository.Login(connection, username, password);
         }
 
         public IEnumerable<UserAccount> GetContactListByUsernameAndPassword(IDbConnection connection, string username, string password)

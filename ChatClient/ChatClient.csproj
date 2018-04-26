@@ -62,10 +62,32 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Chat\Control\ChatMessageControl.xaml.cs">
+      <DependentUpon>ChatMessageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Chat\Control\ChatNameControl.xaml.cs">
+      <DependentUpon>ChatNameControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Chat\Control\UserAccountControl.xaml.cs">
+      <DependentUpon>UserAccountControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\OnlineStatusConverter.cs" />
     <Compile Include="Login\RegistrationUI.xaml.cs">
       <DependentUpon>RegistrationUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="WebserviceAPI.cs" />
+    <Page Include="Chat\Control\ChatMessageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Chat\Control\ChatNameControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Chat\Control\UserAccountControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Chat\MainChatWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -118,10 +140,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Chat\Control\" />
-    <Folder Include="Converter\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\ChatIcon.png" />
   </ItemGroup>

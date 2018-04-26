@@ -13,7 +13,7 @@ namespace Database.Repository
         public UserAccount Get(IDbConnection connection, int id)
         {
             return connection.Query<UserAccount>(
-                "SELECT * FROM useraccount WHERE id = @id",
+                "SELECT useraccount_id, useraccount_firstname, useraccount_lastname, useraccount_username, useraccount_statusmessage FROM useraccount WHERE id = @id",
                 new { id = id }).FirstOrDefault();
         }
 
@@ -22,7 +22,7 @@ namespace Database.Repository
             return (long)connection.ExecuteScalar("SELECT count(*) FROM useraccount WHERE useraccount_username = @username", new { username = username });
         }
 
-        public UserAccount GetByUsernameAndPassword(IDbConnection connection, string username, string password)
+        public UserAccount Login(IDbConnection connection, string username, string password)
         {
             return connection.Query<UserAccount>(
                 "SELECT * FROM useraccount WHERE useraccount_username = @username AND useraccount_password = @password",
@@ -36,7 +36,7 @@ namespace Database.Repository
         public IEnumerable<UserAccount> GetAll(IDbConnection connection)
         {
             return connection.Query<UserAccount>(
-                "SELECT * FROM useraccount").ToList();
+                "SELECT useraccount_id, useraccount_firstname, useraccount_lastname, useraccount_username, useraccount_statusmessage FROM useraccount").ToList();
         }
 
         public void Insert(IDbConnection connection, string firstname, string lastname, string username, string password, string statusMessage, byte[] userIcon)

@@ -957,7 +957,7 @@
             <td>The MySQL loginUserData account being used.</td>
           </tr>
           <tr>
-            <td>Shared Memory Name</td>
+            <td>Shared Memory Title</td>
             <td>MYSQL</td>
             <td>The name of the shared memory object to use for communication if the connection protocol is set to memory.</td>
           </tr>
@@ -979,7 +979,7 @@
           </tr>
           <tr>
             <td>
-              Pipe Name<para>  -or-  </para>Pipe
+              Pipe Title<para>  -or-  </para>Pipe
             </td>
             <td>mysql</td>
             <td>
@@ -1105,7 +1105,7 @@
       <div class="tablediv">
         <table class="dtTABLE" cellspacing="0">
           <tr valign="top">
-            <th width="33%">Name</th>
+            <th width="33%">Title</th>
             <th width="33%">Default</th>
             <th width="33%">Description</th>
           </tr>

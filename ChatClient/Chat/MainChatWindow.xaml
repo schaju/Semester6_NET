@@ -4,49 +4,45 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:model="clr-namespace:Model;assembly=Model"
+        xmlns:control="clr-namespace:ChatClient.Chat.Control"
         mc:Ignorable="d"
         Closed="MainChatWindow_OnClosed"
         Title="Chat" WindowState="Maximized"
         Icon="/Resources/ChatIcon.png"
-        d:DataContext="{d:DesignInstance model:UserAccount}">
+        d:DataContext="{d:DesignInstance model:UserAccount}"
+        x:Name="MainChatWindowUI">
     <DockPanel>
         <Grid DockPanel.Dock="Top">
             <Button HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Margin="10"
                     Click="Btn_Logout_Click"  Content="Logout">
             </Button>
-
-            <StackPanel Height="50" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                <!--<Image x:Name="BorderColor" Width="{Binding ElementName=BorderColor, Path=ActualHeight}" Height="Auto" Margin="2 5 5 5"></Image>-->
-                <Border x:Name="BorderColor" Background="Green" Margin="2 5 5 5" Width="{Binding ElementName=BorderColor, Path=ActualHeight}" Height="Auto"/>
-                <Label FontSize="16" Content="{Binding Path=FirstName}"></Label>
-                <Label FontSize="16" Content="{Binding Path=LastName}"></Label>
-            </StackPanel>
+            <control:UserAccountControl/>
         </Grid>
 
-        <ListView DockPanel.Dock="Left" Width="250" ItemsSource="{Binding Contacts}">
-            <ListView.ItemTemplate>
-                <DataTemplate DataType="model:UserAccount">
-                    <DockPanel>
-                        <Grid DockPanel.Dock="Left">
-                            <!--<Image x:Name="BorderColor" Width="{Binding ElementName=BorderColor, Path=ActualHeight}" Height="Auto" Margin="2 5 5 5"></Image>-->
-                            <Border x:Name="BorderColor" Background="Green" Margin="2 5 5 5" Width="{Binding ElementName=BorderColor, Path=ActualHeight}" Height="Auto"/>
-                        </Grid>
-                        <Grid DockPanel.Dock="Top">
-                            <WrapPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding FirstName}"  FontSize="14" FontWeight="Bold" />
-                                <TextBlock Text=" " />
-                                <TextBlock Text="{Binding LastName}"  FontSize="14" FontWeight="Bold" />
-                            </WrapPanel>
-                        </Grid>
-                        <Grid DockPanel.Dock="Bottom">
-                            <WrapPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding StatusMessage}" FontSize="12"/>
-                            </WrapPanel>
-                        </Grid>
-                    </DockPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <TabControl>
+            <TabItem Header="Chats" >
+                <DockPanel>
+                    <Button DockPanel.Dock="Top" x:Name = "NewChatBtn" Content = "Neuer Chat" HorizontalAlignment="Center" Click = "NewChatBtn_OnClick" Margin = "10" Width = "90" />
+                    <ListView x:Name="ListViewChats" DockPanel.Dock="Left" Width="250" ItemsSource="{Binding ElementName=MainChatWindowUI, Path=ChatList}"
+                              SelectionChanged="ListViewChats_OnSelectionChanged">
+                        <ListView.ItemTemplate>
+                            <DataTemplate DataType="model:Chat">
+                                <control:ChatNameControl/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="Kontakte">
+                <ListView DockPanel.Dock="Left" Width="250" ItemsSource="{Binding ElementName=MainChatWindowUI, Path=Contacts}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="model:UserAccount">
+                            <control:UserAccountControl/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+        </TabControl>
 
         <Grid DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" Margin="10">
@@ -56,55 +52,12 @@
             </StackPanel>
         </Grid>
 
-        <Button DockPanel.Dock="Right" Width="50">Right</Button>
-        <Button>Center</Button>
-    </DockPanel>
-
-
-    <!--<Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.2*" />
-            <ColumnDefinition Width="0.1*" />
-            <ColumnDefinition Width="0.2*" />
-            <ColumnDefinition Width="0.2*" />
-            <ColumnDefinition Width="0.2*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*" />
-            <RowDefinition Height="0.8*" />
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-            <Label FontSize="16" >Eingeloggt: </Label>
-            <Label FontSize="16" Content="{Binding Path=FirstName}"></Label>
-            <Label FontSize="16" Content="{Binding Path=LastName}"></Label>
-        </StackPanel>
-
-        <Button Grid.Row="0" Grid.Column="4" Height="30" Width="60" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="16" Margin="10"
-                Click="Btn_Logout_Click"  Content="Logout">
-        </Button>
-
-
-        <ListView Grid.Row="1" Width="150" Margin="0,5,0,10" Name="ContactListBinding">
+        <ListView x:Name="MainContent">
             <ListView.ItemTemplate>
-                <DataTemplate>
-                    <WrapPanel>
-                        <TextBlock Text="Name: " />
-                        <TextBlock Text="{Binding Name}" FontWeight="Bold" />
-                        <TextBlock Text=", " />
-                        <TextBlock Text="Age: " />
-                        <TextBlock Text="{Binding Age}" FontWeight="Bold" />
-                        <TextBlock Text=" (" />
-                        <TextBlock Text="{Binding Mail}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
-                        <TextBlock Text=")" />
-                    </WrapPanel>
+                <DataTemplate DataType="model:ChatMessage">
+                    <control:ChatMessageControl/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
-        <ListBox Grid.Row="1"  Width="150" Margin="0,5,0,10">
-            <Ellipse Fill="Coral" Height="20" Width="150"  Margin="2,2,2,2"/>
-            <TextBlock Text="{Binding Path=Contacts}" />
-        </ListBox>
-
-    </Grid>-->
+    </DockPanel>
 </Window>

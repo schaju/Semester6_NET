@@ -10,10 +10,8 @@ namespace Model
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public byte[] UserIcon { get; set; }
+        public List<byte> UserIcon { get; set; }
         public string StatusMessage { get; set; }
         public UserAccountStatus UserAccountStatus { get; set; }
-
-        public List<UserAccount> Contacts { get; set; }
     }
 }

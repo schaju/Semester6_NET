@@ -23,19 +23,43 @@ namespace ChatClient.Chat
     {
         private UserAccount loggedInUserAccount;
 
+        public static readonly DependencyProperty ChatListProp = DependencyProperty.Register(
+            nameof(ChatList), typeof(IEnumerable<Model.Chat>), typeof(MainChatWindow), new PropertyMetadata(null));
+
+        public IEnumerable<Model.Chat> ChatList
+        {
+            get { return (IEnumerable<Model.Chat>) GetValue(ChatListProp); }
+            set { SetValue(ChatListProp, value); }
+        }
+
+        public static readonly DependencyProperty PropertyTypeProperty = DependencyProperty.Register(
+            nameof(Contacts), typeof(IEnumerable<UserAccount>), typeof(MainChatWindow), new PropertyMetadata(null));
+
+        public IEnumerable<UserAccount> Contacts
+        {
+            get { return (IEnumerable<UserAccount>) GetValue(PropertyTypeProperty); }
+            set { SetValue(PropertyTypeProperty, value); }
+        }
+
         public MainChatWindow()
         {
             InitializeComponent();
 
             this.loggedInUserAccount = WebserviceAPI.LoggedInUserAccount;
             LoadContactList();
+            LoadChats();
 
             DataContext = loggedInUserAccount;
         }
 
         private void LoadContactList()
         {
-            WebserviceAPI.LoadContactList();
+           Contacts = WebserviceAPI.LoadContactList();
+        }
+
+        private void LoadChats()
+        {
+            ChatList = WebserviceAPI.LoadChatList();
         }
 
         private void MainChatWindow_OnClosed(object sender, EventArgs e)
@@ -53,6 +77,17 @@ namespace ChatClient.Chat
                 loginUI.Show();
                 this.Close();
             }));
+        }
+
+        private void ListViewChats_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var chat = ListViewChats.SelectedItem as Model.Chat;
+            MainContent.ItemsSource = chat.ChatMessages;
+        }
+
+        private void NewChatBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -18,7 +18,12 @@ namespace Database
             }
             FluentMapper.Initialize(config =>
             {
+                config.AddMap(new ChatMapper());
+                config.AddMap(new ChatMemberMapper());
+                config.AddMap(new ChatMessageMapper());
+                config.AddMap(new ContactListMapper());
                 config.AddMap(new UserAccountMapper());
+
             });
         }
     }
