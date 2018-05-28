@@ -23,15 +23,14 @@ namespace ChatClient.Converter
                 return null;
             }
 
-            switch (status)
+            if (status == UserAccountStatus.Inactive)
             {
-                case UserAccountStatus.Inactive:
-                    return new SolidColorBrush(Colors.Red);
-                case UserAccountStatus.Active:
-                    return new SolidColorBrush(Colors.Green);
-                default:
-                    return null;
+                return new SolidColorBrush(Colors.Red);
+            } else if (status >= UserAccountStatus.Active)
+            {
+                return new SolidColorBrush(Colors.Green);
             }
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -38,3 +38,4 @@ C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\obj\Debug\Test.csproj
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\obj\Debug\Test.csproj.CopyComplete
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\obj\Debug\Test.exe
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\obj\Debug\Test.pdb
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Newtonsoft.Json.xml

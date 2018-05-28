@@ -71,6 +71,12 @@
     <Compile Include="Chat\Control\UserAccountControl.xaml.cs">
       <DependentUpon>UserAccountControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Chat\EditProfileUI.xaml.cs">
+      <DependentUpon>EditProfileUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contact\AddContactUI.xaml.cs">
+      <DependentUpon>AddContactUI.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converter\OnlineStatusConverter.cs" />
     <Compile Include="Login\RegistrationUI.xaml.cs">
       <DependentUpon>RegistrationUI.xaml</DependentUpon>
@@ -88,7 +94,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Chat\EditProfileUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Chat\MainChatWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Contact\AddContactUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

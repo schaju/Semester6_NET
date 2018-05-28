@@ -43,3 +43,7 @@ C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\obj\Debug\ChatC
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\obj\Debug\ChatClient.pdb
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\bin\Debug\ChatClient.exe.config
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\obj\Debug\ChatClient.csproj.CopyComplete
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\obj\Debug\Chat\EditProfileUI.g.cs
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\obj\Debug\Chat\EditProfileUI.baml
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\obj\Debug\Contact\AddContactUI.g.cs
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\obj\Debug\Contact\AddContactUI.baml

@@ -87,3 +87,6 @@ C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\WebService\obj\Debug\WebSe
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\WebService\obj\Debug\WebService.csproj.CopyComplete
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\WebService\obj\Debug\WebService.dll
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\WebService\obj\Debug\WebService.pdb
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\WebService\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\WebService\bin\Google.Protobuf.dll
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\WebService\bin\Google.Protobuf.xml

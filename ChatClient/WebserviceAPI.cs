@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using ChatClient.Annotations;
 using Model;
 using RestSharp;
@@ -49,6 +50,10 @@ namespace ChatClient
             {
                 LoggedInUserAccount = loginResponse.Data;
             }
+            else if (loginResponse.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                throw new Exception("Login failed. (Wrong username or password, or the user is already logged in.)");
+            }
             else
             {
                 throw new Exception(loginResponse.ErrorMessage);
@@ -91,7 +96,29 @@ namespace ChatClient
                     return (List<Model.Chat>)chatResponse.Data;
 
                 }
-                throw new Exception(chatResponse.ErrorMessage.ToString());
+                throw new Exception(chatResponse.ErrorMessage);
+            }
+            return null;
+        }
+
+        public static IEnumerable<Model.Chat> SendMessageIntoChat(string message)
+        {
+            if (LoggedInUserAccount != null)
+            {
+                var client = new RestClient(BASE_URL);
+                var request = new RestRequest("chat/sendChatMessage", Method.POST);
+                request.AddParameter("username", LoggedInUserAccount.UserName);
+                request.AddParameter("password", LoggedInUserAccount.Password);
+                request.AddParameter("message", message);
+
+                var chatResponse = (RestResponse<List<Model.Chat>>)client.Execute<List<Model.Chat>>(request);
+
+                if (chatResponse.StatusCode == HttpStatusCode.OK)
+                {
+                    return (List<Model.Chat>)chatResponse.Data;
+
+                }
+                throw new Exception(chatResponse.ErrorMessage);
             }
             return null;
         }
@@ -111,9 +138,37 @@ namespace ChatClient
                 {
                     return userAccountResponse.Data;
                 }
-                throw new Exception(userAccountResponse.ErrorMessage.ToString());
+                throw new Exception(userAccountResponse.ErrorMessage);
             }
             return null;
+        }
+
+        public static void ChangeUserAccount()
+        {
+            if (LoggedInUserAccount != null)
+            {
+                var client = new RestClient(BASE_URL);
+                var request = new RestRequest("useraccount/update", Method.POST);
+                request.AddParameter("id", LoggedInUserAccount.Id);
+                request.AddParameter("firstname", LoggedInUserAccount.FirstName);
+                request.AddParameter("lastname", LoggedInUserAccount.LastName);
+                request.AddParameter("username", LoggedInUserAccount.UserName);
+                request.AddParameter("password", LoggedInUserAccount.Password);
+                request.AddParameter("statusMessage", LoggedInUserAccount.StatusMessage);
+                request.AddParameter("userAccountStatus", LoggedInUserAccount.UserAccountStatus);
+                request.AddParameter("userIcon", LoggedInUserAccount.UserIcon);
+
+                var userAccountResponse = (RestResponse<UserAccount>)client.Execute<UserAccount>(request);
+
+                if (userAccountResponse.StatusCode == HttpStatusCode.OK)
+                {
+                    LoggedInUserAccount = userAccountResponse.Data;
+                }
+                else
+                {
+                    throw new Exception(userAccountResponse.ErrorMessage);
+                }
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ChatClient.Contact;
 using ChatClient.Login;
 using Model;
 
@@ -79,15 +80,43 @@ namespace ChatClient.Chat
             }));
         }
 
+        private void Btn_Send_Click(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new Action(delegate ()
+            {
+
+                var message = "";
+                //WebserviceAPI.SendMessageIntoChat(message, chatId);
+            }));
+        }
+
         private void ListViewChats_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var chat = ListViewChats.SelectedItem as Model.Chat;
             MainContent.ItemsSource = chat.ChatMessages;
         }
 
-        private void NewChatBtn_OnClick(object sender, RoutedEventArgs e)
+        private void Btn_Edit_Profile(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            this.Dispatcher.Invoke(new Action(delegate ()
+            {
+                EditProfileUI editProfileUI = new EditProfileUI();
+                editProfileUI.ShowDialog();
+
+                loggedInUserAccount = WebserviceAPI.LoggedInUserAccount;
+                DataContext = loggedInUserAccount;
+            }));
+        }
+
+        private void NewContactBtn(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new Action(delegate ()
+            {
+                AddContactUI addContactUI = new AddContactUI(Contacts);
+                addContactUI.ShowDialog();
+
+                LoadContactList();
+            }));
         }
     }
 }

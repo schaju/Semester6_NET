@@ -23,6 +23,27 @@ namespace WebService.Controllers
         }
 
         [HttpPost]
+        [Route("update")]
+        public IHttpActionResult UpdateUserAccount([FromBody] UserAccount userAccount)
+        {
+            using (IDbConnection connection = base.ConnectionProvider.GetMySqlConnection())
+            {
+                if (string.IsNullOrEmpty(userAccount.FirstName) ||
+                    string.IsNullOrEmpty(userAccount.LastName) ||
+                    string.IsNullOrEmpty(userAccount.UserName) ||
+                    string.IsNullOrEmpty(userAccount.Password))
+                {
+                    return BadRequest("Firstname, lastname, username and password must be set.");
+                }
+
+                service.Update(connection, userAccount);
+
+                UserAccount loadedUserAccount = service.GetUserAccountByUsernameAndPassword(connection, userAccount.UserName, userAccount.Password);
+                return Ok(loadedUserAccount);
+            }
+        }
+
+        [HttpPost]
         [Route("registration")]
         public IHttpActionResult Registration([FromBody] UserAccount userAccount)
         {
@@ -43,7 +64,7 @@ namespace WebService.Controllers
                     return BadRequest("Username does already exist.");
                 }
 
-                service.Insert(connection, userAccount.FirstName, userAccount.LastName, userAccount.UserName, userAccount.Password, userAccount.StatusMessage, userAccount.UserIcon);
+                service.Insert(connection, userAccount.FirstName, userAccount.LastName, userAccount.UserName, userAccount.Password, userAccount.StatusMessage, userAccount.UserIcon, UserAccountStatus.Active);
 
                 UserAccount loadedUserAccount = service.GetUserAccountByUsernameAndPassword(connection, userAccount.UserName, userAccount.Password);
                 return Ok(loadedUserAccount);
@@ -60,7 +81,8 @@ namespace WebService.Controllers
 
                 if (loadedUserAccount != null && loadedUserAccount.UserAccountStatus == UserAccountStatus.Inactive)
                 {
-                    service.UpdateUserAccountStatus(connection, loginUserData, UserAccountStatus.Active);
+                    loadedUserAccount.UserAccountStatus = UserAccountStatus.Active;
+                    service.Update(connection, loadedUserAccount);
                     return Ok(loadedUserAccount);
                 }
                 return Unauthorized();
@@ -73,7 +95,9 @@ namespace WebService.Controllers
         {
             using (IDbConnection connection = base.ConnectionProvider.GetMySqlConnection())
             {
-                service.UpdateUserAccountStatus(connection, loginUserData, UserAccountStatus.Inactive);
+                UserAccount loadedUserAccount = service.GetUserAccountByUsernameAndPassword(connection, loginUserData.UserName, loginUserData.Password);
+                loadedUserAccount.UserAccountStatus = UserAccountStatus.Inactive;
+                service.Update(connection, loadedUserAccount);
                 return Ok();
             }
         }

@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Registration"
         KeyDown="Window_KeyDown"
-        Height="450" Width="800"
+        Height="500" Width="800"
         Icon="/Resources/ChatIcon.png">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -40,7 +40,7 @@
         <TextBox x:Name="UsernameInput" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="4" Margin="0,6" Height="30" FontSize="16" VerticalContentAlignment="Center"></TextBox>
         <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" FontSize="16" Margin="0,6">Passwort</Label>
         <PasswordBox x:Name="PasswordInput" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="4" Margin="0,6" Height="30" FontSize="16" VerticalContentAlignment="Center"></PasswordBox>
-        <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" FontSize="16" Margin="0,6">UserAccountStatusmeldung</Label>
+        <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" FontSize="16" Margin="0,6">Statusmeldung</Label>
         <TextBox x:Name="StatusMessageInput" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="4" Margin="0,6" Height="30" FontSize="16" VerticalContentAlignment="Center"></TextBox>
 
         <Button Grid.Row="7" Grid.Column="5" FontSize="16" Click="Btn_Registration_Click" Content="Regestrieren" Width="120"></Button>

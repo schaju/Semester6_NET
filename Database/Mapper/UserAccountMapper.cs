@@ -17,7 +17,7 @@ namespace Database.Mapper
             Map(x => x.Password).ToColumn("useraccount_password");
             Map(x => x.UserIcon).ToColumn("useraccount_usericon");
             Map(x => x.StatusMessage).ToColumn("useraccount_statusmessage");
-            Map(x => x.UserAccountStatus).ToColumn("status");
+            Map(x => x.UserAccountStatus).ToColumn("useraccount_status");
         }
     }
 }

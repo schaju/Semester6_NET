@@ -13,34 +13,36 @@
         x:Name="MainChatWindowUI">
     <DockPanel>
         <Grid DockPanel.Dock="Top">
-            <Button HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Margin="10"
-                    Click="Btn_Logout_Click"  Content="Logout">
-            </Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Margin="10" Click="Btn_Edit_Profile"  Content="Profil bearbeiten"/>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Margin="10" Click="Btn_Logout_Click"  Content="Logout"/>
+            </StackPanel>
             <control:UserAccountControl/>
         </Grid>
 
         <TabControl>
             <TabItem Header="Chats" >
+                <ListView x:Name="ListViewChats" DockPanel.Dock="Left" Width="250" ItemsSource="{Binding ElementName=MainChatWindowUI, Path=ChatList}"
+                            SelectionChanged="ListViewChats_OnSelectionChanged">
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="model:Chat">
+                            <control:ChatNameControl/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Kontakte">
                 <DockPanel>
-                    <Button DockPanel.Dock="Top" x:Name = "NewChatBtn" Content = "Neuer Chat" HorizontalAlignment="Center" Click = "NewChatBtn_OnClick" Margin = "10" Width = "90" />
-                    <ListView x:Name="ListViewChats" DockPanel.Dock="Left" Width="250" ItemsSource="{Binding ElementName=MainChatWindowUI, Path=ChatList}"
-                              SelectionChanged="ListViewChats_OnSelectionChanged">
+                    <Button DockPanel.Dock="Top" x:Name="AddNewContactBtn" Content ="Neuer Kontakt" ToolTip="Neuer Kontakt hinzufügen" HorizontalAlignment="Center"
+                            Click = "NewContactBtn" Margin = "10" Width = "90" />
+                    <ListView DockPanel.Dock="Left" Width="250" ItemsSource="{Binding ElementName=MainChatWindowUI, Path=Contacts}">
                         <ListView.ItemTemplate>
-                            <DataTemplate DataType="model:Chat">
-                                <control:ChatNameControl/>
+                            <DataTemplate DataType="model:UserAccount">
+                                <control:UserAccountControl/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
                 </DockPanel>
-            </TabItem>
-            <TabItem Header="Kontakte">
-                <ListView DockPanel.Dock="Left" Width="250" ItemsSource="{Binding ElementName=MainChatWindowUI, Path=Contacts}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate DataType="model:UserAccount">
-                            <control:UserAccountControl/>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
             </TabItem>
         </TabControl>
 
@@ -48,7 +50,7 @@
             <StackPanel Orientation="Horizontal" Margin="10">
                 <Label FontSize="14" VerticalAlignment="Center" Margin="5">Nachricht:</Label>
                 <TextBox Width="600" Height="30" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBox>
-                <Button Content="Send" Height="30" Width="80" FontSize="14" HorizontalAlignment="Center" Margin="5 0 0 0"></Button>
+                <Button Content="Senden" Click="Btn_Send_Click"  Height="30" Width="80" FontSize="14" HorizontalAlignment="Center" Margin="5 0 0 0"></Button>
             </StackPanel>
         </Grid>
 

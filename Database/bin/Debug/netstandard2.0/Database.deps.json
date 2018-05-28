@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "3f4423a174b56750e40c1a4f72acfd94f9c4db1b"
+    "signature": "89a44e618aeb9a1afce19d596fd653b365b41bd5"
   },
   "compilationOptions": {},
   "targets": {
@@ -12,7 +12,7 @@
           "Dapper": "1.50.4",
           "Dapper.FluentMap": "1.6.0",
           "Model": "1.0.0",
-          "MySql.Data": "6.10.6",
+          "MySql.Data": "6.10.7",
           "NETStandard.Library": "2.0.1"
         },
         "runtime": {
@@ -49,7 +49,7 @@
           "lib/netstandard2.0/Microsoft.Win32.Registry.dll": {}
         }
       },
-      "MySql.Data/6.10.6": {
+      "MySql.Data/6.10.7": {
         "dependencies": {
           "System.Configuration.ConfigurationManager": "4.4.0",
           "System.Security.Permissions": "4.4.0",
@@ -295,12 +295,12 @@
       "path": "microsoft.win32.registry/4.4.0",
       "hashPath": "microsoft.win32.registry.4.4.0.nupkg.sha512"
     },
-    "MySql.Data/6.10.6": {
+    "MySql.Data/6.10.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-dcod4CxVkrRANjfVWS7um5HTyLFJhyBGp5hVSdmrhhZZiP9cX3ZNfoZ0W88f6lDWExJuILsAIbctZirQ9mpjQQ==",
-      "path": "mysql.data/6.10.6",
-      "hashPath": "mysql.data.6.10.6.nupkg.sha512"
+      "sha512": "sha512-2fptledJVo4GaF/DOpWgumn+pteZ2eNlaZTE8I6CUvK7Zz5UGPWTg3v9l4Ymp9ewivodYI5VDn6ucVyKL/e++A==",
+      "path": "mysql.data/6.10.7",
+      "hashPath": "mysql.data.6.10.7.nupkg.sha512"
     },
     "NETStandard.Library/2.0.1": {
       "type": "package",
