@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "89a44e618aeb9a1afce19d596fd653b365b41bd5"
+    "signature": "a6fc56a52c6d7cae5b7880d6d30d6f1236c7f92f"
   },
   "compilationOptions": {},
   "targets": {
@@ -9,17 +9,17 @@
     ".NETStandard,Version=v2.0/": {
       "Database/1.0.0": {
         "dependencies": {
-          "Dapper": "1.50.4",
+          "Dapper": "1.50.5",
           "Dapper.FluentMap": "1.6.0",
           "Model": "1.0.0",
-          "MySql.Data": "6.10.7",
+          "MySql.Data": "8.0.11",
           "NETStandard.Library": "2.0.1"
         },
         "runtime": {
           "Database.dll": {}
         }
       },
-      "Dapper/1.50.4": {
+      "Dapper/1.50.5": {
         "dependencies": {
           "System.Data.SqlClient": "4.4.0",
           "System.Reflection.Emit.Lightweight": "4.3.0",
@@ -31,11 +31,19 @@
       },
       "Dapper.FluentMap/1.6.0": {
         "dependencies": {
-          "Dapper": "1.50.4",
+          "Dapper": "1.50.5",
           "NETStandard.Library": "2.0.1"
         },
         "runtime": {
           "lib/netstandard1.3/Dapper.FluentMap.dll": {}
+        }
+      },
+      "Google.Protobuf/3.5.1": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.1"
+        },
+        "runtime": {
+          "lib/netstandard1.0/Google.Protobuf.dll": {}
         }
       },
       "Microsoft.NETCore.Platforms/1.1.0": {},
@@ -49,8 +57,9 @@
           "lib/netstandard2.0/Microsoft.Win32.Registry.dll": {}
         }
       },
-      "MySql.Data/6.10.7": {
+      "MySql.Data/8.0.11": {
         "dependencies": {
+          "Google.Protobuf": "3.5.1",
           "System.Configuration.ConfigurationManager": "4.4.0",
           "System.Security.Permissions": "4.4.0",
           "System.Text.Encoding.CodePages": "4.4.0"
@@ -260,12 +269,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Dapper/1.50.4": {
+    "Dapper/1.50.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-t5DMz+1aEkBcyCgkj+6hJHNsUq3k/d67lVMTNzICEhVjPUI3Gt2kgotSK8S4SpziIbFPphnOEn8M6Q75ED5hRQ==",
-      "path": "dapper/1.50.4",
-      "hashPath": "dapper.1.50.4.nupkg.sha512"
+      "sha512": "sha512-1vPpX7WQmQCIb7rwlGOUoVs/yWZhVKvdhuG7WrJV+V+qsP8btnrrCqVWHENAlJxBAnUw5rhWfmuba9/Egei9MA==",
+      "path": "dapper/1.50.5",
+      "hashPath": "dapper.1.50.5.nupkg.sha512"
     },
     "Dapper.FluentMap/1.6.0": {
       "type": "package",
@@ -273,6 +282,13 @@
       "sha512": "sha512-niI2QZGCs6lsa19RvJNYeEVbFhlYbWHsX9KkyY39R6R9LKuxtoyT3FvYNEVyAnYNDh/cg8Ntomemg1opOFRa3g==",
       "path": "dapper.fluentmap/1.6.0",
       "hashPath": "dapper.fluentmap.1.6.0.nupkg.sha512"
+    },
+    "Google.Protobuf/3.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-f2k1VNaB9bfvEsvARzzEL1TZiIpL33KKK3JMH7UANlPlJVptuvsk4qpBZEnz0pORWZOdUHlVwMQuUzFqjJYCxA==",
+      "path": "google.protobuf/3.5.1",
+      "hashPath": "google.protobuf.3.5.1.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",
@@ -295,12 +311,12 @@
       "path": "microsoft.win32.registry/4.4.0",
       "hashPath": "microsoft.win32.registry.4.4.0.nupkg.sha512"
     },
-    "MySql.Data/6.10.7": {
+    "MySql.Data/8.0.11": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-2fptledJVo4GaF/DOpWgumn+pteZ2eNlaZTE8I6CUvK7Zz5UGPWTg3v9l4Ymp9ewivodYI5VDn6ucVyKL/e++A==",
-      "path": "mysql.data/6.10.7",
-      "hashPath": "mysql.data.6.10.7.nupkg.sha512"
+      "sha512": "sha512-P5zKcnM2SVtdHD6gfReymJguIYLhNL5Og8Qm5TC9MEsSupsAYrRu4AB4nsbalrjqqv8VHBqVREWsXg9lY+q03A==",
+      "path": "mysql.data/8.0.11",
+      "hashPath": "mysql.data.8.0.11.nupkg.sha512"
     },
     "NETStandard.Library/2.0.1": {
       "type": "package",
