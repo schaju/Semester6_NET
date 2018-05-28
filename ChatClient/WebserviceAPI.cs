@@ -38,7 +38,7 @@ namespace ChatClient
             }
             else
             {
-                throw new Exception(registrationResponse.ErrorMessage);
+                throw new Exception(registrationResponse.Content + " - " + registrationResponse.ErrorMessage);
             }
         }
 
@@ -60,7 +60,7 @@ namespace ChatClient
             }
             else
             {
-                throw new Exception(loginResponse.ErrorMessage);
+                throw new Exception(loginResponse.Content + " - " + loginResponse.ErrorMessage);
             }
         }
 
@@ -97,7 +97,7 @@ namespace ChatClient
                 }
                 else
                 {
-                    throw new Exception(loginResponse.ErrorMessage);
+                    throw new Exception(loginResponse.Content + " - " + loginResponse.ErrorMessage);
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace ChatClient
                     return (List<Model.Chat>)chatResponse.Data;
 
                 }
-                throw new Exception(chatResponse.ErrorMessage);
+                throw new Exception(chatResponse.Content + " - " + chatResponse.ErrorMessage);
             }
             return null;
         }
@@ -140,7 +140,7 @@ namespace ChatClient
                     return (List<Model.Chat>)chatResponse.Data;
 
                 }
-                throw new Exception(chatResponse.ErrorMessage);
+                throw new Exception(chatResponse.Content + " - " + chatResponse.ErrorMessage);
             }
             return null;
         }
@@ -160,7 +160,7 @@ namespace ChatClient
                 {
                     return userAccountResponse.Data;
                 }
-                throw new Exception(userAccountResponse.ErrorMessage);
+                throw new Exception(userAccountResponse.Content + " - " + userAccountResponse.ErrorMessage);
             }
             return null;
         }
@@ -188,7 +188,7 @@ namespace ChatClient
                 }
                 else
                 {
-                    throw new Exception(userAccountResponse.ErrorMessage);
+                    throw new Exception(userAccountResponse.Content + " - " + userAccountResponse.ErrorMessage);
                 }
             }
         }

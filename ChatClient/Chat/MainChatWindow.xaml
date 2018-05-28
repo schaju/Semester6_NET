@@ -22,7 +22,8 @@
 
         <TabControl>
             <TabItem Header="Chats" >
-                <ListView x:Name="ListViewChats" DockPanel.Dock="Left" Width="250" ItemsSource="{Binding ElementName=MainChatWindowUI, Path=ChatList}"
+                <ListView x:Name="ListViewChats" DockPanel.Dock="Left" Width="250"
+                          ItemsSource="{Binding ElementName=MainChatWindowUI, Path=ChatList}"
                             SelectionChanged="ListViewChats_OnSelectionChanged">
                     <ListView.ItemTemplate>
                         <DataTemplate DataType="model:Chat">
@@ -49,7 +50,7 @@
         <Grid DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" Margin="10">
                 <Label FontSize="14" VerticalAlignment="Center" Margin="5">Nachricht:</Label>
-                <TextBox Width="600" Height="30" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBox>
+                <TextBox Name="TextBoxMessage" Width="600" Height="30" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBox>
                 <Button Content="Senden" Click="Btn_Send_Click"  Height="30" Width="80" FontSize="14" HorizontalAlignment="Center" Margin="5 0 0 0"></Button>
             </StackPanel>
         </Grid>

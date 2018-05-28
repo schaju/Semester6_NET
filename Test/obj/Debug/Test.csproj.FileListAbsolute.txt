@@ -48,3 +48,6 @@ C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Google.Prot
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Microsoft.Owin.xml
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Microsoft.AspNet.SignalR.Core.xml
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Microsoft.Owin.Security.xml
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Microsoft.Owin.Cors.dll
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\System.Web.Cors.dll
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Microsoft.Owin.Cors.xml

@@ -37,8 +37,7 @@ namespace ChatClient.Contact
 
         private void Btn_AddContact_Click(object sender, RoutedEventArgs e)
         {
-            //TODO@Jus
-            throw new Exception("Method is not implemented, sorry ;-).");
+            MessageBox.Show("Sorry, not implemented ;-)...");
         }
 
         private void AddContactUI_OnKeyDown(object sender, KeyEventArgs e)

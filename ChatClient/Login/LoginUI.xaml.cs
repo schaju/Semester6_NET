@@ -57,14 +57,12 @@ namespace ChatClient.Login
             }
         }
 
-        private void Registration_OnClick(object sender, RoutedEventArgs e)
+        private async void Registration_OnClick(object sender, RoutedEventArgs e)
         {
-            this.Dispatcher.Invoke(new Action(delegate ()
-            {
-                RegistrationUI registrationWindow = new RegistrationUI();
-                registrationWindow.Show();
-                this.Close();
-            }));
+
+            RegistrationUI registrationWindow = new RegistrationUI();
+            registrationWindow.Show();
+            this.Close();
         }
     }
 }

@@ -32,5 +32,19 @@ namespace Database.Repository
                     chatId = chatId
                 }, splitOn: "useraccount_id");
         }
+
+        public void InsertChatMessage(IDbConnection connection, int chatId, int userId, string message)
+        {
+            string insertQuery = @"INSERT INTO chat_messages(chat_messages_chat_id, chat_messages_message, chat_messages_sender_id, chat_messages_timestamp) 
+                                    VALUES (@ChatId, @Message, @SenderId, @Timestamp)";
+
+            connection.Execute(insertQuery, new
+                {
+                    ChatId = chatId,
+                    Message = message,
+                    SenderId = userId,
+                    Timestamp = DateTime.Now
+                });
+        }
     }
 }

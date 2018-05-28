@@ -33,14 +33,19 @@ namespace WebService.Controllers
                 IEnumerable<Chat> chats =  chatService.GetChatsByUserAccount(connection, loginUserData.UserName, loginUserData.Password);
                 foreach (Chat chat in chats)
                 {
-                    IEnumerable<ChatMember> chatMembers = chatMemberService.GetChatsMembersByChat(connection, chat.Id);
-                    chat.ChatMembers = chatMembers;
-
+                    chat.ChatMembers =  new List<ChatMember>(chatMemberService.GetChatsMembersByChat(connection, chat.Id));
                     //could also be loaded just if the chat is clicked (if there are a lot of chats available)
-                    IEnumerable<ChatMessage> chatMessages = chatMessageService.GetChatsMessagesByChat(connection, chat.Id);
-                    chat.ChatMessages = chatMessages;
+                    chat.ChatMessages = new List<ChatMessage>(chatMessageService.GetChatsMessagesByChat(connection, chat.Id));
                 }
                 return Ok(chats);
+            }
+        }
+
+        public void InsertChatMessage(int chatId, int userId, string message)
+        {
+            using (IDbConnection connection = base.ConnectionProvider.GetMySqlConnection())
+            {
+                chatMessageService.InsertChatMessage(connection, chatId, userId, message);
             }
         }
     }

@@ -21,5 +21,10 @@ namespace WebService.Services
         {
             return repository.GetChatsMessagesByChat(connection, chatId);
         }
+
+        public void InsertChatMessage(IDbConnection connection, int chatId, int userId, string message)
+        {
+            repository.InsertChatMessage(connection, chatId, userId, message);
+        }
     }
 }

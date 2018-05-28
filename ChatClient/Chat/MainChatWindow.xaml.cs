@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,23 +26,21 @@ namespace ChatClient.Chat
     {
         private UserAccount loggedInUserAccount;
 
-        public static readonly DependencyProperty ChatListProp = DependencyProperty.Register(
+        public ObservableCollection<Model.Chat> ChatList
+        {
+            get { return (ObservableCollection<Model.Chat>) GetValue(ChatListProperty); }
+            set { SetValue(ChatListProperty, value); }
+        }
+        public static readonly DependencyProperty ChatListProperty = DependencyProperty.Register(
             nameof(ChatList), typeof(IEnumerable<Model.Chat>), typeof(MainChatWindow), new PropertyMetadata(null));
 
-        public IEnumerable<Model.Chat> ChatList
+        public ObservableCollection<UserAccount> Contacts
         {
-            get { return (IEnumerable<Model.Chat>) GetValue(ChatListProp); }
-            set { SetValue(ChatListProp, value); }
-        }
-
-        public static readonly DependencyProperty PropertyTypeProperty = DependencyProperty.Register(
-            nameof(Contacts), typeof(IEnumerable<UserAccount>), typeof(MainChatWindow), new PropertyMetadata(null));
-
-        public IEnumerable<UserAccount> Contacts
-        {
-            get { return (IEnumerable<UserAccount>) GetValue(PropertyTypeProperty); }
+            get { return (ObservableCollection<UserAccount>) GetValue(PropertyTypeProperty); }
             set { SetValue(PropertyTypeProperty, value); }
         }
+        public static readonly DependencyProperty PropertyTypeProperty = DependencyProperty.Register(
+            nameof(Contacts), typeof(ObservableCollection<UserAccount>), typeof(MainChatWindow), new PropertyMetadata(null));
 
         public MainChatWindow()
         {
@@ -53,21 +52,34 @@ namespace ChatClient.Chat
 
             DataContext = loggedInUserAccount;
 
-            WebserviceAPI.ChatHub.On<string, string>("addMessage", (name, message) =>
+            WebserviceAPI.ChatHub.On<int, ChatMessage>("addMessage", (chatId, message) =>
+            {
+                var chat = Dispatcher.Invoke(() => ListViewChats.SelectedItem) as Model.Chat;
+                if (chat.Id == chatId)
                 {
-                    Console.WriteLine(name);
-                    Console.WriteLine(message);
-                });
+                    Dispatcher.Invoke(() =>
+                        {
+                            var messages = MainContent.ItemsSource as ObservableCollection<ChatMessage>;
+                            messages.Add(message);
+                        });
+                }
+                else
+                {
+                    chat = Dispatcher.Invoke(() => ChatList).FirstOrDefault(c => c.Id == chatId);
+                }
+                chat.ChatMessages.Add(message);
+            });
         }
 
         private void LoadContactList()
         {
-           Contacts = WebserviceAPI.LoadContactList();
+           Contacts = new ObservableCollection<UserAccount>(WebserviceAPI.LoadContactList());
         }
 
         private void LoadChats()
         {
-            ChatList = WebserviceAPI.LoadChatList();
+            ChatList = new ObservableCollection<Model.Chat>(WebserviceAPI.LoadChatList());
+            ListViewChats.SelectedItem = ChatList.FirstOrDefault();
         }
 
         private void MainChatWindow_OnClosed(object sender, EventArgs e)
@@ -86,13 +98,23 @@ namespace ChatClient.Chat
 
         private void Btn_Send_Click(object sender, RoutedEventArgs e)
         {
-            WebserviceAPI.ChatHub.Invoke<string, string>("Send", Console.WriteLine, "name", "message");
+            Model.Chat selectedChat = (Model.Chat)ListViewChats.SelectedItem;
+            if (selectedChat != null)
+            {
+                WebserviceAPI.ChatHub.Invoke("Send", loggedInUserAccount, selectedChat.Id, TextBoxMessage.Text);
+            }
+            else
+            {
+                MessageBox.Show("Bitte Chatfenster auswählen.");
+            }
+
+            TextBoxMessage.Text = String.Empty;
         }
 
         private void ListViewChats_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var chat = ListViewChats.SelectedItem as Model.Chat;
-            MainContent.ItemsSource = chat.ChatMessages;
+            MainContent.ItemsSource = new ObservableCollection<ChatMessage>(chat.ChatMessages);
         }
 
         private void Btn_Edit_Profile(object sender, RoutedEventArgs e)

@@ -33,34 +33,29 @@ namespace ChatClient.Login
             }
         }
 
-        private void Btn_Registration_Click(object sender, RoutedEventArgs e)
+        private async void Btn_Registration_Click(object sender, RoutedEventArgs e)
         {
-            this.Dispatcher.Invoke(new Action(delegate ()
+            try
             {
-                try
+                WebserviceAPI.Registrate(FirstNameInput.Text, LastNameInput.Text, UsernameInput.Text, PasswordInput.Password, StatusMessageInput.Text);
+                await this.Dispatcher.Invoke(async () =>
                 {
-                    WebserviceAPI.Registrate(FirstNameInput.Text, LastNameInput.Text, UsernameInput.Text, PasswordInput.Password, StatusMessageInput.Text);
-
                     MainChatWindow mainChatWindow = new MainChatWindow();
                     mainChatWindow.Show();
                     this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }));
-
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void Btn_Cancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Dispatcher.Invoke(new Action(delegate ()
-            {
-                LoginUI loginWindow = new LoginUI();
-                loginWindow.Show();
-                this.Close();
-            }));
+            LoginUI loginWindow = new LoginUI();
+            loginWindow.Show();
+            this.Close();
         }
     }
 }
