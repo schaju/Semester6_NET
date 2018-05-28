@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using ChatClient.Annotations;
+using Microsoft.AspNet.SignalR.Client;
 using Model;
 using RestSharp;
 
@@ -13,13 +14,15 @@ namespace ChatClient
 {
     public class WebserviceAPI
     {
-        private static readonly string BASE_URL = "http://127.0.0.1/webservice/api/";
+        private static readonly string BASE_URL = "http://127.0.0.1/webservice/";
+        private static readonly string BASE_API_URL = $"{BASE_URL}api/";
 
         [CanBeNull] public static UserAccount LoggedInUserAccount;
+        [CanBeNull] public static IHubProxy ChatHub;
 
         public static void Registrate(string firstname, string lastname, string username, string password, string statusMessage, byte[] userIcon = null)
         {
-            var client = new RestClient(BASE_URL);
+            var client = new RestClient(BASE_API_URL);
             var request = new RestRequest("useraccount/registration", Method.POST);
             request.AddParameter("firstname", firstname);
             request.AddParameter("lastname", lastname);
@@ -39,9 +42,9 @@ namespace ChatClient
             }
         }
 
-        public static void Login(string userName, string password)
+        public static async Task LoginAsync(string userName, string password)
         {
-            var client = new RestClient(BASE_URL);
+            var client = new RestClient(BASE_API_URL);
             var request = new RestRequest("useraccount/login", Method.POST);
             request.AddParameter("username", userName);
             request.AddParameter("password", password);
@@ -49,6 +52,7 @@ namespace ChatClient
             if (loginResponse.StatusCode == HttpStatusCode.OK && loginResponse.Data != null)
             {
                 LoggedInUserAccount = loginResponse.Data;
+                await ConnectToSignalRHubAsync();
             }
             else if (loginResponse.StatusCode == HttpStatusCode.Unauthorized)
             {
@@ -60,11 +64,29 @@ namespace ChatClient
             }
         }
 
+        public static async Task ConnectToSignalRHubAsync()
+        {
+            var connection = new HubConnection(BASE_URL);
+            ChatHub = connection.CreateHubProxy("ChatHub");
+
+            await connection.Start().ContinueWith(task =>
+                {
+                    if (task.IsFaulted)
+                    {
+                        Console.WriteLine("There was an error opening the connection:{0}", task.Exception.GetBaseException());
+                    }
+                    else
+                    {
+                        Console.WriteLine("Connected");
+                    }
+                });
+        }
+
         public static void Logout()
         {
             if (LoggedInUserAccount != null)
             {
-                var client = new RestClient(BASE_URL);
+                var client = new RestClient(BASE_API_URL);
                 var request = new RestRequest("useraccount/logout", Method.POST);
                 request.AddParameter("username", LoggedInUserAccount.UserName);
                 request.AddParameter("password", LoggedInUserAccount.Password);
@@ -84,7 +106,7 @@ namespace ChatClient
         {
             if (LoggedInUserAccount != null)
             {
-                var client = new RestClient(BASE_URL);
+                var client = new RestClient(BASE_API_URL);
                 var request = new RestRequest("chat/chats", Method.POST);
                 request.AddParameter("username", LoggedInUserAccount.UserName);
                 request.AddParameter("password", LoggedInUserAccount.Password);
@@ -105,7 +127,7 @@ namespace ChatClient
         {
             if (LoggedInUserAccount != null)
             {
-                var client = new RestClient(BASE_URL);
+                var client = new RestClient(BASE_API_URL);
                 var request = new RestRequest("chat/sendChatMessage", Method.POST);
                 request.AddParameter("username", LoggedInUserAccount.UserName);
                 request.AddParameter("password", LoggedInUserAccount.Password);
@@ -127,7 +149,7 @@ namespace ChatClient
         {
             if (LoggedInUserAccount != null)
             {
-                var client = new RestClient(BASE_URL);
+                var client = new RestClient(BASE_API_URL);
                 var request = new RestRequest("useraccount/contacts", Method.POST);
                 request.AddParameter("username", LoggedInUserAccount.UserName);
                 request.AddParameter("password", LoggedInUserAccount.Password);
@@ -147,7 +169,7 @@ namespace ChatClient
         {
             if (LoggedInUserAccount != null)
             {
-                var client = new RestClient(BASE_URL);
+                var client = new RestClient(BASE_API_URL);
                 var request = new RestRequest("useraccount/update", Method.POST);
                 request.AddParameter("id", LoggedInUserAccount.Id);
                 request.AddParameter("firstname", LoggedInUserAccount.FirstName);

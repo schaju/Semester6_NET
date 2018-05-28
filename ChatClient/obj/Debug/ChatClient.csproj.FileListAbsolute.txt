@@ -47,3 +47,7 @@ C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\obj\Debug\Chat\
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\obj\Debug\Chat\EditProfileUI.baml
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\obj\Debug\Contact\AddContactUI.g.cs
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\obj\Debug\Contact\AddContactUI.baml
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\bin\Debug\Microsoft.AspNet.SignalR.Client.dll
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\bin\Debug\Newtonsoft.Json.dll
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\bin\Debug\Microsoft.AspNet.SignalR.Client.xml
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\ChatClient\bin\Debug\Newtonsoft.Json.xml

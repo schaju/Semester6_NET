@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ChatClient.Contact;
 using ChatClient.Login;
+using Microsoft.AspNet.SignalR.Client;
 using Model;
 
 namespace ChatClient.Chat
@@ -51,6 +52,12 @@ namespace ChatClient.Chat
             LoadChats();
 
             DataContext = loggedInUserAccount;
+
+            WebserviceAPI.ChatHub.On<string, string>("addMessage", (name, message) =>
+                {
+                    Console.WriteLine(name);
+                    Console.WriteLine(message);
+                });
         }
 
         private void LoadContactList()
@@ -70,24 +77,16 @@ namespace ChatClient.Chat
 
         private void Btn_Logout_Click(object sender, RoutedEventArgs e)
         {
-            this.Dispatcher.Invoke(new Action(delegate ()
-            {
-                WebserviceAPI.Logout();
+            WebserviceAPI.Logout();
 
-                LoginUI loginUI = new LoginUI();
-                loginUI.Show();
-                this.Close();
-            }));
+            LoginUI loginUI = new LoginUI();
+            loginUI.Show();
+            this.Close();
         }
 
         private void Btn_Send_Click(object sender, RoutedEventArgs e)
         {
-            this.Dispatcher.Invoke(new Action(delegate ()
-            {
-
-                var message = "";
-                //WebserviceAPI.SendMessageIntoChat(message, chatId);
-            }));
+            WebserviceAPI.ChatHub.Invoke<string, string>("Send", Console.WriteLine, "name", "message");
         }
 
         private void ListViewChats_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -98,25 +97,19 @@ namespace ChatClient.Chat
 
         private void Btn_Edit_Profile(object sender, RoutedEventArgs e)
         {
-            this.Dispatcher.Invoke(new Action(delegate ()
-            {
-                EditProfileUI editProfileUI = new EditProfileUI();
-                editProfileUI.ShowDialog();
+            EditProfileUI editProfileUI = new EditProfileUI();
+            editProfileUI.ShowDialog();
 
-                loggedInUserAccount = WebserviceAPI.LoggedInUserAccount;
-                DataContext = loggedInUserAccount;
-            }));
+            loggedInUserAccount = WebserviceAPI.LoggedInUserAccount;
+            DataContext = loggedInUserAccount;
         }
 
         private void NewContactBtn(object sender, RoutedEventArgs e)
         {
-            this.Dispatcher.Invoke(new Action(delegate ()
-            {
-                AddContactUI addContactUI = new AddContactUI(Contacts);
-                addContactUI.ShowDialog();
+            AddContactUI addContactUI = new AddContactUI(Contacts);
+            addContactUI.ShowDialog();
 
-                LoadContactList();
-            }));
+            LoadContactList();
         }
     }
 }

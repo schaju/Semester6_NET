@@ -39,3 +39,12 @@ C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\obj\Debug\Test.csproj
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\obj\Debug\Test.exe
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\obj\Debug\Test.pdb
 C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Newtonsoft.Json.xml
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Google.Protobuf.dll
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Microsoft.Owin.dll
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Owin.dll
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Microsoft.Owin.Security.dll
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Google.Protobuf.xml
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Microsoft.Owin.xml
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\julia\Documents\VisualStudio\NET\ChatProgram\Test\bin\Debug\Microsoft.Owin.Security.xml

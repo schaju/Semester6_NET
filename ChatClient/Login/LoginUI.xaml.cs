@@ -39,23 +39,22 @@ namespace ChatClient.Login
             }
         }
 
-        private void Btn_Login_Click(object sender, RoutedEventArgs e)
+        private async void Btn_Login_Click(object sender, RoutedEventArgs e)
         {
-            this.Dispatcher.Invoke(new Action(delegate ()
+            try
             {
-                try
+                await WebserviceAPI.LoginAsync(UserNameInput.Text, PasswordInput.Password);
+                await this.Dispatcher.Invoke(async () =>
                 {
-                    WebserviceAPI.Login(UserNameInput.Text, PasswordInput.Password);
-
                     MainChatWindow mainChatWindow = new MainChatWindow();
                     mainChatWindow.Show();
                     this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
-            }));
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void Registration_OnClick(object sender, RoutedEventArgs e)
